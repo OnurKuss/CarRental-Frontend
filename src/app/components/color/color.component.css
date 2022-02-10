@@ -1,0 +1,11 @@
+.renk{
+    border-style: none;
+    border-radius: 5px;
+    width: 196px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

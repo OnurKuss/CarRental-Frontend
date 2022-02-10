@@ -1,0 +1,62 @@
+<div style="border-style: solid; width: 600px; height: 500px; border-width: 1px; padding: 20px;">
+    <h3 style="text-align: center;">Ödeme Sayfası</h3>
+    <form [formGroup]="creditCardAddForm" (ngSubmit)="checkOut()">
+          <div class="my-3">
+            <div *ngFor="let cardType of cardTypes" class="form-check">
+              <input id="{{cardType}}" name="cardType" type="radio" value="{{cardType}}" (change)="radioChangeHandler($event)"
+                     formControlName="cardType" class="form-check-input" required>
+              <label class="form-check-label" for="cardType">{{cardType}}</label>
+            </div>
+            
+          </div> 
+                 
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="fullName" class="form-label">Name on card</label>
+              <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="" required> 
+              <small class="text-muted">Full name as displayed on card</small>
+              <div class="invalid-feedback">
+                Name on card is required
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="cardNumber" class="form-label">Credit card number</label>
+              <input type="text" formControlName="cardNumber" class="form-control" id="cardNumber" placeholder="" required>
+              <div class="invalid-feedback">
+                Credit card number is required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="expMonth" class="form-label">Exp Month</label>
+              <input type="number" formControlName="expMonth" class="form-control" id="expMonth" placeholder="" required style="width: 100px;">
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="expYear" class="form-label">Exp Year</label>
+                <input type="number" formControlName="expYear" class="form-control" id="expYear" placeholder="" required style="width: 100px;">
+                <div class="invalid-feedback">
+                  Expiration date required
+                </div>
+              </div>
+
+            <div class="col-md-3">
+              <label for="cvv" class="form-label">CVV</label>
+              <input type="number" formControlName="cvv" class="form-control" id="cvv" placeholder="" required style="width: 100px;">
+              <div class="invalid-feedback">
+                Security code required
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Ödemeyi tamamla</button>
+    </form>
+</div>
+    
+

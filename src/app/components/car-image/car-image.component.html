@@ -1,6 +1,6 @@
 
-<div class="card-group">
-<div class="card" *ngFor="let carImage of carImages">
-   <img [src]="getImageSource(carImage)" class="card-img-top" >
+<div class="card-group" style="border-style: none; width: 500px; height: 300px; float: left; position: relative; left: 20px;">
+<div class="card" *ngFor="let carImage of carImages" style="width: 500px;height: 100px;">
+   <img [src]="getImageSource(carImage)" >
 </div>
 </div>

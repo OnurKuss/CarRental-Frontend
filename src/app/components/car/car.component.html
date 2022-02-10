@@ -1,29 +1,60 @@
-<table *ngIf="dataLoaded == true" class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Marka</th>
-      <th>Renk</th>
-      <th>Açıklama</th>
-      <th>Ücret</th>
-      <th>Model Yılı</th>
+
+  <div class="row" style="background-color: rgb(76, 76, 248); border-style: none; width: 1090px;">
+     <div class="col-md-2" style="padding: 12px;">
+      <select [(ngModel)]="brandId" class="form-select" aria-label="Default select example">
+        <option  value="0" selected disabled hidden >Marka Seçiniz</option>
+        <option  *ngFor="let brand of brands" value="{{brand.brandId}}">{{brand.brandName}}</option>
+      </select>
+     </div>
+
+     <div class="col-md-2" style="padding: 12px;">
+      <select [(ngModel)]="colorId" class="form-select" aria-label="Default select example">
+        <option value="0" selected disabled hidden>Renk Seçiniz</option>
+        <option *ngFor="let color of colors" value="{{color.colorId}}">{{color.colorName}}</option>
+      </select>
+     </div>
+
+     <div class="col-md-3" style="padding: 12px;">
+      <button (click)="getCarsWithBrandAndColor()"  type="button" class="btn btn-success">Filtrele</button>
+      <button  (click)="resetItems()" type="reset" class="btn btn-danger" style=" position: relative; left: 10px;">Temizle</button>
+    </div>
+
+
+     <div style="display:flex; flex-direction: row;  align-items: center; border-style: none; padding: 10px; " class="col-md-3">
+        <label for="filterCar" class="form-label" style="text-align: center; width: 300px; color: white;">Model Ara :</label> 
+        <input type="text" [(ngModel)]="filterCar" class="form-control" id="filterCar" placeholder="model giriniz">
+     </div>
+  </div>
+  <table *ngIf="dataLoaded == true" class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Marka</th>
+        <th>Renk</th>
+        <th>Model Yılı</th>
+        <th>Ücret</th>
+        <th>Açıklama</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of carDetails | carFilterPipe:filterCar">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.brandName | uppercase  }}</td>
+      <td>{{ car.colorName | uppercase }}</td>
+      <td>{{ car.modelYear }}</td>
+      <td>{{ car.dailyPrice | currency}}</td> 
+      <td>{{ car.description | uppercase }}</td>
+      <td routerLink="/cars/carDetails/{{ car.carId }}"><button type="button" class="btn btn-primary">Detaylı İncele</button></td>
+      <td><button type="button" class="btn btn-success" routerLink="/rental/add/{{car.carId}}">Kirala</button></td>
     </tr>
-  </thead>
-  <tbody>
-    <tr
-    routerLink="/carImages/car/{{ car.carId }}"
-    (click)="setCurrentCar(car)"
-    [class]="getCurrentCar(car)"
-    *ngFor="let car of carDetails"
-    >
-    <td>{{ car.carId }}</td>
-    <td>{{ car.brandName }}</td>
-    <td>{{ car.colorName }}</td>
-    <td>{{ car.description }}</td>
-    <td>{{ car.dailyPrice }}</td>
-    <td>{{ car.modelYear }}</td>
-  </tr>
+      
+    </tbody>
     
-  </tbody>
+  </table>
+
+
+ 
+
   
-</table>

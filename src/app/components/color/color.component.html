@@ -1,21 +1,16 @@
-<!-- <table *ngIf="dataLoaded==true" class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Renk</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let color of colors">
-        <td>{{color.colorId}}</td>
-        <td>{{color.colorName}}</td>
-    </tr>
-</table> -->
+<div class="mb-3">
+  <label for="filterColor" class="form-label" class="renk">Renkler</label>
+  <input type="text" [(ngModel)]="filterColor" class="form-control" id="filterColor" placeholder="renk giriniz">
+</div>
+<div *ngIf="filterColor" class="alert alert-success">
+    {{filterColor}} aradınız
+</div>
 <ul class="list-group">
   <li
     (click)="setCurrentColor(color)"
     routerLink="/cars/color/{{color.colorId}}"
     [class]="getCurrentColorClass(color)"
-    *ngFor="let color of colors"
+    *ngFor="let color of colors |colorFilterPipe:filterColor"
   >
     {{ color.colorName }}
   </li>
