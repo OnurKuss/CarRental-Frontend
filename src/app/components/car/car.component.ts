@@ -3,10 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from 'src/app/models/brand';
 import { CarDetail } from 'src/app/models/carDetail';
-import { CarImage } from 'src/app/models/carImage';
 import { Color } from 'src/app/models/color';
 import { BrandService } from 'src/app/services/brand.service';
-import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
 import { ColorService } from 'src/app/services/color.service';
 
@@ -27,15 +25,15 @@ export class CarComponent implements OnInit {
   brands: Brand[];
   colors: Color[];
 
-  carImages: CarImage[]
+  CarImagePath='https://localhost:44326/';
+
 
   constructor(
     private carService: CarService,
     private brandService: BrandService,
     private colorService: ColorService,
     private activatedRoute: ActivatedRoute,
-    private toastrService:ToastrService,
-    private carImageService:CarImageService
+    private toastrService:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +48,7 @@ export class CarComponent implements OnInit {
     });
     this.getBrandList();
     this.getColorList();
-    this.resetItems()
+    this.resetItems();
   }
 
   getCarDetails() {
@@ -106,5 +104,12 @@ export class CarComponent implements OnInit {
     this.colorId=0
   }
 
-  
+  getCarImage(carDetail:CarDetail) {
+    if(carDetail.imagePath){
+      return carDetail.imagePath;
+    }else{
+      return "";
+    }
+  }
+
 }

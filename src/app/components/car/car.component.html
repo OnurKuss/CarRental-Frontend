@@ -25,36 +25,39 @@
         <input type="text" [(ngModel)]="filterCar" class="form-control" id="filterCar" placeholder="model giriniz">
      </div>
   </div>
-  <table *ngIf="dataLoaded == true" class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Marka</th>
-        <th>Renk</th>
-        <th>Model Yılı</th>
-        <th>Ücret</th>
-        <th>Açıklama</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let car of carDetails | carFilterPipe:filterCar">
-      <td>{{ car.carId }}</td>
-      <td>{{ car.brandName | uppercase  }}</td>
-      <td>{{ car.colorName | uppercase }}</td>
-      <td>{{ car.modelYear }}</td>
-      <td>{{ car.dailyPrice | currency}}</td> 
-      <td>{{ car.description | uppercase }}</td>
-      <td routerLink="/cars/carDetails/{{ car.carId }}"><button type="button" class="btn btn-primary">Detaylı İncele</button></td>
-      <td><button type="button" class="btn btn-success" routerLink="/rental/add/{{car.carId}}">Kirala</button></td>
-    </tr>
-      
-    </tbody>
-    
-  </table>
 
+    <div class="row" *ngIf="dataLoaded==true">
+      <div *ngFor="let car of carDetails | carFilterPipe:filterCar" class="card col-3" style="width: 30%; margin: 8px;padding: 2px;">
 
+        <div class="card-img-top">
+          <img src="{{CarImagePath}}{{getCarImage(car)}}" style="width: 300px; padding-left: 25px; padding-top: 10px;" >
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-tittle">
+            {{car.brandName | uppercase}}
+          </h5>
+          <p class="card-text">{{ car.description }}</p>
+        </div>
+        <section style="float: inline-end; margin-bottom: 8px">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Model Year : {{ car.modelYear }}</li>
+          <li class="list-group-item">
+            Price : {{ car.dailyPrice | currency }} / day
+          </li>
+          <li class="list-group-item">Color : {{ car.colorName }}</li>
+        </ul>
+        <div class="card-body" style="border-style: none;">
+          <section style="float: left; ;border-style: none;">
+            <button type="button" class="btn btn-primary" routerLink="/cars/carDetails/{{ car.carId }}">View Detail</button>
+          </section>
+          <section style="float:right ;border-style: none;">
+            <button type="button" class="btn btn-success" routerLink="/rental/add/{{car.carId}}">Rent</button>
+          </section>
+        </div>
+        </section>
+      </div>
+    </div>
  
 
   
